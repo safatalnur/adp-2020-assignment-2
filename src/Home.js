@@ -18,7 +18,7 @@ function Home ({navigation}) {
         {/* Create a button linked to Game component */}
         <Button
             title="CLICK HERE TO TAKE THE CHALLENGE!!!!!"
-            // onPress= {()=> navigation.navigate('Game')}
+            onPress= {()=> navigation.navigate('Game')}
         />
     </View>
   );

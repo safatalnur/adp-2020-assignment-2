@@ -1,19 +1,21 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+//importing react-navigation
+import { NavigationContainer, StackActions} from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+//importing components
+import Home from './src/Home'
+import Game from './src/Game'
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
-  );
+const Stack = createStackNavigator();
+
+function App() {
+    return (
+        <NavigationContainer>
+            <Stack.Navigator>
+                <Stack.Screen name="Home" component={Home} />
+            </Stack.Navigator>
+        </NavigationContainer>
+    )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App

@@ -11,6 +11,8 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
+import NumberButton from './NumberButton';
+
 
 function Game() {
 
@@ -25,7 +27,10 @@ function Game() {
     const randomNumbers = [...Array(6)].map(()=>1+Math.floor(Math.random()*9))
     console.log ('randomNumbers:>>', randomNumbers)
 
-    const targetNumber = 10 + Math.floor(40*Math.random())
+    // const targetNumber = 10 + Math.floor(40*Math.random())
+    const targetNumber = randomNumbers.slice(Math.floor(Math.random()*5))
+                                    .reduce((acc, curr) => acc + curr, 0)
+
     console.log ('targetNumber:>>', targetNumber)
 
     return (
@@ -34,9 +39,16 @@ function Game() {
                 <Text style={styles.targetNumber}>
                     The target number is ==> {targetNumber}
                 </Text>
-                <Text>
-                    {randomNumbers}
-                </Text>
+            </View>
+            
+            <View style={styles.randomContainer}>
+                {randomNumbers.map((randomNumber, index)=>
+                    <NumberButton 
+                            key={index} 
+                            id={index}
+                            number={randomNumber}
+                    />
+                )}
             </View>
         </ScrollView>
     )
@@ -55,6 +67,14 @@ const styles = StyleSheet.create({
         marginHorizontal: 50,
         marginTop: 25,
     },
+
+    randomContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'space-around', 
+    },
+
 
   
 })

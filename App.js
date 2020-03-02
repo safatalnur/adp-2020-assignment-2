@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-//importing react-navigation
 import { NavigationContainer, StackActions} from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 //importing components

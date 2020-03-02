@@ -4,7 +4,6 @@ import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 function NumberButton(props) {
     //handle each random number when pressed
     function handleRandomPress() {                                  
-        console.log('value of index number selected:>>', props.number)
         // disable selected number once selected
         if (props.isDisabled) {
             return
@@ -40,8 +39,7 @@ const styles = StyleSheet.create({
 
     disabled: {
         opacity: 0.3
-    }
-
+    },
 })
 
 export default NumberButton

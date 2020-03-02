@@ -6,8 +6,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 //import Game page
 import Game from '../src/Game'
 
-
-
 function Home ({navigation}) {
 
   return (
@@ -38,6 +36,5 @@ const styles = StyleSheet.create({
       textAlign: 'center',
   },
 });
-
 
 export default Home

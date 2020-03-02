@@ -24,22 +24,14 @@ function Game() {
     const [startCounter, setStartCounter] = useState(true)
     const [ resetCount, setResetCount ] = useState(0)
 
-
-
     //Provide an array of 6 random numbers between 1 and 9
-    // const randomNumbers = [...Array(6)].map(()=>1+Math.floor(Math.random()*9))
     const [ randomNumbers, setRandomNumbers ] = useState( [...Array(6)].map(()=>1+Math.floor(Math.random()*9)) )
 
-    console.log ('randomNumbers:>>', randomNumbers)
-
     // randomly select random array of numbers from the randomNumbers array and add them up to get a target number
-    // const targetNumber = randomNumbers.slice(Math.floor(Math.random()*5))
-    //                                 .reduce((acc, curr) => acc + curr, 0)
     const [ targetNumber, setTargetNumber ] = useState( randomNumbers.slice(Math.floor
     
     (Math.random()*5)).reduce((acc, curr) => acc + curr, 0) )
 
-    console.log ('targetNumber:>>', targetNumber)
     //find the index of selected random number and if selected return boolean info
     function isSelectedNumber (numberIndex) {
         return selectedNumbers.indexOf(numberIndex) >=0
@@ -48,12 +40,10 @@ function Game() {
     function selectNumber(numberIndex, numberValue) {
         //Create an  array of selected numbers index value
         setSelectedNumbers(prevState => {
-            console.log('selectNumber:>>',prevState, numberIndex)
             return [...prevState, numberIndex]
         })
         //Create an  array of selected numbers actual value
         setSelectedNumberValues(prev => {
-            console.log('VALUES =>>', prev, numberValue)
             return [...prev, numberValue]
         })
     }
@@ -61,7 +51,6 @@ function Game() {
     //Add the values of selected numbers
     useEffect(()=> {
         const sum = selectedNumberValues.reduce((acc, curr) => acc + curr)
-        console.log("SUM =>>>", sum)
         setSumSelected(sum)
     }, [selectedNumbers])
 
@@ -82,10 +71,6 @@ function Game() {
         }
     }, [sumSelected, timer])
 
-    useEffect(() => {
-        console.log("NEW GAME STATUS =>>> ", gameStatus)
-    }, [gameStatus])
-
     //Game timer function
     useEffect(() => {
         startCounter && setInterval(() => {
@@ -98,18 +83,12 @@ function Game() {
         }, 1000)
     }, [startCounter])
 
-    if (gameStatus=== 'WON'){
-        clearInterval(setInterval)
-    }
-
-
     //Set everything back to initial state for reset button to work
     const reset = () => {
         setGameStatus("PLAYING")
         setSelectedNumbers([])
         setSelectedNumberValues([0])
         setRandomNumbers([...Array(6)].map(()=>1+Math.floor(Math.random()*9)))
-        // setTargetNumber
         setTimer(10)
         setSumSelected(0)
         setResetCount(prev => prev + 1)

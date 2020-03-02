@@ -14,12 +14,14 @@ import {
 import NumberButton from './NumberButton';
 
 
-function Game(props) {
+function Game() {
 
     const [selectedNumbers, setSelectedNumbers] = useState([])
     const [ selectedNumberValues, setSelectedNumberValues ] = useState([0])
     const [ sumSelected, setSumSelected ] = useState(0)
     const [ gameStatus, setGameStatus ] = useState('PLAYING')
+    const [timer, setTimer] = useState(10)
+    const [startCounter, setStartCounter] = useState(true)
 
 
     //Provide an array of 6 random numbers between 1 and 9
@@ -73,11 +75,27 @@ function Game(props) {
         if (sumSelected > targetNumber) {
             setGameStatus('LOST')
         }
-    }, [sumSelected])
+        if (timer === 0) {
+            setGameStatus('LOST')
+        }
+    }, [sumSelected, timer])
 
     useEffect(() => {
         console.log("NEW GAME STATUS =>>> ", gameStatus)
     }, [gameStatus])
+
+    //Game timer function
+    useEffect(() => {
+        startCounter && setInterval(() => {
+            setTimer(prev => { 
+                if (prev <= 0){
+                    return 0
+                }
+                return prev - 1
+            })
+        }, 1000)
+        
+    }, [])
 
 
     return (
@@ -102,6 +120,13 @@ function Game(props) {
                     />
                 )}
             </View>
+
+            <View style={styles.timer}>
+                <Text style={styles.timerText}>
+                    You have {timer} seconds to get it right
+                </Text>
+            </View>
+
         </ScrollView>
     )
 }
@@ -135,7 +160,20 @@ const styles = StyleSheet.create({
     },
     STATUS_LOST: {
         backgroundColor: 'red'
-    },  
+    },
+    
+    timer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        textAlign: 'center',
+    },
+
+    timerText: {
+        fontSize: 25,
+        color: 'blue',
+        fontWeight: 'bold',
+    },
 })
 
 export default Game

@@ -2,14 +2,21 @@ import React, {useState } from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 
 function NumberButton(props) {
-
+    //handle each random number when pressed
     function handleRandomPress() {                                  
-
+        console.log('value of index number selected:>>', props.number)
+        // disable selected number once selected
+        if (props.isDisabled) {
+            return
+        }
+        //If random number is not selected then run this
+        {props.onPress(props.id, props.number)}
     }
         return (
+        // Organize and display 6 randomly selected numbers
         <View>
             <TouchableOpacity onPress={handleRandomPress}>
-                <Text style={styles.randomItems}>
+                <Text style={[styles.randomItems, props.isDisabled && styles.disabled]}>
                     {props.number}
                 </Text>
             </TouchableOpacity>

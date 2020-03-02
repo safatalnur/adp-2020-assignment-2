@@ -14,39 +14,60 @@ import {
 import NumberButton from './NumberButton';
 
 
-function Game() {
+function Game(props) {
 
-    // const [randomNumbersArray, setRandomNumbersArray] = useState([])
+    const [selectedNumbers, setSelectedNumbers] = useState([])
+    const [ selectedNumberValues, setSelectedNumberValues ] = useState([0])
 
-    // const randomNumbers = () => {
-    //     const newRandomNumbers = [...Array(6)].map(()=>1+Math.floor(Math.random()*10));
-    //     setRandomNumbersArray(newRandomNumbers);
-    //     console.log(setRandomNumbersArray)
 
-    // }
+    //Provide an array of 6 random numbers between 1 and 9
     const randomNumbers = [...Array(6)].map(()=>1+Math.floor(Math.random()*9))
     console.log ('randomNumbers:>>', randomNumbers)
 
-    // const targetNumber = 10 + Math.floor(40*Math.random())
+    // randomly select random array of numbers from the randomNumbers array and add them up to get a target number
     const targetNumber = randomNumbers.slice(Math.floor(Math.random()*5))
                                     .reduce((acc, curr) => acc + curr, 0)
 
     console.log ('targetNumber:>>', targetNumber)
+    //find the index of selected random number and if selected return boolean info
+    function isSelectedNumber (numberIndex) {
+        return selectedNumbers.indexOf(numberIndex) >=0
+    }
+
+    function selectNumber(numberIndex, numberValue) {
+        //Create an  array of selected numbers index value
+        setSelectedNumbers(prevState => {
+            console.log('selectNumber:>>',prevState, numberIndex)
+            return [...prevState, numberIndex]
+        })
+        //Create an  array of selected numbers actual value
+        setSelectedNumberValues(prev => {
+            console.log('VALUES =>>', prev, numberValue)
+            return [...prev, numberValue]
+        })
+
+    }
+
 
     return (
         <ScrollView style={styles.MainContainer}>
+
+            {/* display target number for the game */}
             <View style={styles.container}>
                 <Text style={styles.targetNumber}>
                     The target number is ==> {targetNumber}
                 </Text>
             </View>
-            
+
+            {/* map random numbers and provide properties for those numbers */}
             <View style={styles.randomContainer}>
                 {randomNumbers.map((randomNumber, index)=>
                     <NumberButton 
                             key={index} 
                             id={index}
                             number={randomNumber}
+                            isDisabled = {isSelectedNumber(index)}
+                            onPress = {selectNumber}
                     />
                 )}
             </View>
@@ -80,19 +101,3 @@ const styles = StyleSheet.create({
 })
 
 export default Game
-// -------------BACK UP------------------
-// import React from 'react'
-// import { StyleSheet, Text, View } from 'react-native'
-
-
-// function Game() {
-//     return (
-//         <View>
-//             <Text>
-//                 Here we go
-//             </Text>
-//         </View>
-//     )
-// }
-
-// export default Game

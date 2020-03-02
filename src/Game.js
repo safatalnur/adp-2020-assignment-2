@@ -18,6 +18,8 @@ function Game(props) {
 
     const [selectedNumbers, setSelectedNumbers] = useState([])
     const [ selectedNumberValues, setSelectedNumberValues ] = useState([0])
+    const [ sumSelected, setSumSelected ] = useState(0)
+    const [ gameStatus, setGameStatus ] = useState('PLAYING')
 
 
     //Provide an array of 6 random numbers between 1 and 9
@@ -50,8 +52,32 @@ function Game(props) {
             console.log('VALUES =>>', prev, numberValue)
             return [...prev, numberValue]
         })
-
     }
+
+    //Add the values of selected numbers
+    useEffect(()=> {
+        const sum = selectedNumberValues.reduce((acc, curr) => acc + curr)
+        console.log("SUM =>>>", sum)
+        setSumSelected(sum)
+    }, [selectedNumbers])
+
+    //Declare game status
+    useEffect(() => {
+        
+        if (sumSelected < targetNumber) {
+            setGameStatus('PLAYING')
+        }
+        if (sumSelected === targetNumber) {
+            setGameStatus('WON')
+        }
+        if (sumSelected > targetNumber) {
+            setGameStatus('LOST')
+        }
+    }, [sumSelected])
+
+    useEffect(() => {
+        console.log("NEW GAME STATUS =>>> ", gameStatus)
+    }, [gameStatus])
 
 
     return (
@@ -59,7 +85,7 @@ function Game(props) {
 
             {/* display target number for the game */}
             <View style={styles.container}>
-                <Text style={styles.targetNumber}>
+                <Text style={[styles.targetNumber, styles[`STATUS_${gameStatus}`]]}>
                     The target number is ==> {targetNumber}
                 </Text>
             </View>
@@ -101,8 +127,15 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around', 
     },
 
-
-  
+    STATUS_PLAYING: {
+        backgroundColor: '#bbb'
+    },
+    STATUS_WON: {
+        backgroundColor: 'green'
+    },
+    STATUS_LOST: {
+        backgroundColor: 'red'
+    },  
 })
 
 export default Game

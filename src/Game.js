@@ -22,6 +22,8 @@ function Game() {
     const [ gameStatus, setGameStatus ] = useState('PLAYING')
     const [timer, setTimer] = useState(10)
     const [startCounter, setStartCounter] = useState(true)
+    const [ resetCount, setResetCount ] = useState(0)
+
 
 
     //Provide an array of 6 random numbers between 1 and 9
@@ -97,6 +99,23 @@ function Game() {
         
     }, [])
 
+    //Set everything back to initial state for reset button to work
+    const reset = () => {
+        setGameStatus("PLAYING")
+        setSelectedNumbers([])
+        setSelectedNumberValues([0])
+        setRandomNumbers([...Array(6)].map(()=>1+Math.floor(Math.random()*9)))
+        // setTargetNumber
+        setTimer(10)
+        setSumSelected(0)
+        setResetCount(prev => prev + 1)
+    }
+
+    //setRandomNumbers need to be run completely before setTargetNumber can run
+    useEffect(() => {
+        setTargetNumber(randomNumbers.slice(Math.floor(Math.random()*5)).reduce((acc, curr) => acc + curr, 0))
+    }, [resetCount])
+
 
     return (
         <ScrollView style={styles.MainContainer}>
@@ -126,6 +145,13 @@ function Game() {
                     You have {timer} seconds to get it right
                 </Text>
             </View>
+
+            <View>
+                <Button onPress={reset}
+                    title= 'RESET'>
+                </Button>      
+            </View>
+
 
         </ScrollView>
     )

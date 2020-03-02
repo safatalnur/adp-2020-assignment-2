@@ -1,14 +1,10 @@
-import React, {useState, useEffect, useMemo} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
   ScrollView,
   View,
   Text,
-  StatusBar,
-  Platform,
   Button,
-  TouchableOpacity,
 } from 'react-native';
 
 import NumberButton from './NumberButton';

@@ -1,10 +1,5 @@
 import React from 'react'
 import { StyleSheet, Text, View, Button } from 'react-native'
-// import navigation dependencies
-import { NavigationContainer, StackActions} from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-//import Game page
-import Game from '../src/Game'
 
 function Home ({navigation}) {
 

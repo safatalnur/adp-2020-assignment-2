@@ -94,10 +94,14 @@ function Game() {
                     return 0
                 }
                 return prev - 1
-            })
+            })    
         }, 1000)
-        
-    }, [])
+    }, [startCounter])
+
+    if (gameStatus=== 'WON'){
+        clearInterval(setInterval)
+    }
+
 
     //Set everything back to initial state for reset button to work
     const reset = () => {
@@ -134,7 +138,7 @@ function Game() {
                             key={index} 
                             id={index}
                             number={randomNumber}
-                            isDisabled = {isSelectedNumber(index)}
+                            isDisabled = {isSelectedNumber(index) || gameStatus!== 'PLAYING'}
                             onPress = {selectNumber}
                     />
                 )}

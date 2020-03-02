@@ -21,12 +21,17 @@ function Game(props) {
 
 
     //Provide an array of 6 random numbers between 1 and 9
-    const randomNumbers = [...Array(6)].map(()=>1+Math.floor(Math.random()*9))
+    // const randomNumbers = [...Array(6)].map(()=>1+Math.floor(Math.random()*9))
+    const [ randomNumbers, setRandomNumbers ] = useState( [...Array(6)].map(()=>1+Math.floor(Math.random()*9)) )
+
     console.log ('randomNumbers:>>', randomNumbers)
 
     // randomly select random array of numbers from the randomNumbers array and add them up to get a target number
-    const targetNumber = randomNumbers.slice(Math.floor(Math.random()*5))
-                                    .reduce((acc, curr) => acc + curr, 0)
+    // const targetNumber = randomNumbers.slice(Math.floor(Math.random()*5))
+    //                                 .reduce((acc, curr) => acc + curr, 0)
+    const [ targetNumber, setTargetNumber ] = useState( randomNumbers.slice(Math.floor
+    
+    (Math.random()*5)).reduce((acc, curr) => acc + curr, 0) )
 
     console.log ('targetNumber:>>', targetNumber)
     //find the index of selected random number and if selected return boolean info
